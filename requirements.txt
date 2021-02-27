@@ -1,0 +1,7 @@
+torch
+torchtext
+keras
+numpy 
+pandas 
+seaborn 
+matplotlib
