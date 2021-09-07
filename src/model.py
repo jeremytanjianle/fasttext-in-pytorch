@@ -7,6 +7,32 @@ import torch.nn as nn
 from .utils import word2subword
 
 class subword_tokenizer(nn.Module):
+    """
+    USAGE:
+    ------
+    # Imeplemented model gives the same emebddings
+    from src.model import Subword_Embedding
+    subword = Subword_Embedding()
+    subword.from_pretrained( pretraining_folder = 'resources/cc.en.300.bin' )
+
+    # see something vec
+    something_vec = subword(['something', 'something is right'])
+    something_vec[:,:5]
+    tensor([[-0.0045,  0.0097,  0.0500,  0.0337, -0.0330],
+            [ 0.0011,  0.0044,  0.0108,  0.0488, -0.0035]])
+
+    # saving and restoring function works
+    subword.save('test')
+    subword2 = Subword_Embedding()
+    subword2.restore('test')
+
+    # see something vec
+    something_vec = subword2(['something', 'something is right'])
+    something_vec[:,:5]
+    tensor([[-0.0045,  0.0097,  0.0500,  0.0337, -0.0330],
+            [ 0.0011,  0.0044,  0.0108,  0.0488, -0.0035]],
+        grad_fn=<SliceBackward>)
+    """
     def __init__(self, stoi={'<unk>':0}, embed_dim=200):
         super().__init__()
         self.stoi = stoi
