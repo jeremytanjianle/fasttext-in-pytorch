@@ -1,6 +1,7 @@
 ## Fasttext Subword Embeddings in PyTorch
-[FastText](https://github.com/facebookresearch/fastText) is great for things like handling OOV words using subwords... but what if we need to pass gradients through our fasttext embeddings?
+[FastText](https://github.com/facebookresearch/fastText) is great for things like handling OOV words using subwords... 
 <img src='img/model_summary.png' width="400" height="200">
+but what if we need to pass gradients through our fasttext embeddings?  
 
 ## Usage
 Code snippet to demonstrate that it will replicate the original fasttext embeddings
@@ -8,7 +9,7 @@ Code snippet to demonstrate that it will replicate the original fasttext embeddi
 # Imeplemented model gives the same emebddings
 from src.model import Subword_Embedding
 subword = Subword_Embedding()
-subword.from_pretrained()
+subword.from_pretrained( pretraining_folder = 'resources/cc.en.300.bin' )
 
 # see something vec
 something_vec = subword(['something', 'something is right'])
@@ -51,6 +52,10 @@ The train file demonstrate a general use case for the model.
 `python train.py`   
 Generally, the results make sense.    
 <img src='img/word_sim.png'>
+
+### Converting original `fasttext` embeddings into ingestible formats
+`python scripts/convert_pretrained_weights.py`  
+`python scripts/download_model.py`
 
 ### Modularity
 To copy paste into your models, copy and paste 'src/model.py` simply as it is self-contained. 
