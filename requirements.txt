@@ -1,7 +1,10 @@
 torch
 torchtext
-keras
 numpy 
-pandas 
-seaborn 
-matplotlib
+fasttext
+tqdm
+
+# pandas 
+# matplotlib
+# seaborn 
+# keras
