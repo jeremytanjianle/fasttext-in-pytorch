@@ -39,9 +39,11 @@ class subword_tokenizer(nn.Module):
         # store a list of offsets to separate the words out
         token_ids, offsets, offset = [], [], 0
         for word in list_of_words:
-            offsets.append(offset)
+            # get token ids
             token_id = self.str2id(word)
             token_ids.extend(token_id)
+            # store offsets for embedding 
+            offsets.append(offset)
             offset += len(token_id)
         token_ids = torch.LongTensor(token_ids)
         
@@ -49,7 +51,7 @@ class subword_tokenizer(nn.Module):
         encoding = self.embedding(token_ids, offsets=torch.tensor(offsets))
         return encoding
         
-    def batch_forward(self, batch_of_couples, labels):
+    def train_batch(self, batch_of_couples, labels):
         # get word pair encodings
         word1s = self(batch_of_couples[0])
         word2s = self(batch_of_couples[1])
