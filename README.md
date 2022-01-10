@@ -54,8 +54,10 @@ Generally, the results make sense.
 <img src='img/word_sim.png'>
 
 ### Converting original `fasttext` embeddings into ingestible formats
+Download model.  
+`python scripts/download_model.py "en"`  
+Convert the weights of the downloaded model.   
 `python scripts/convert_pretrained_weights.py`  
-`python scripts/download_model.py`
 
 ### Modularity
 To copy paste into your models, copy and paste 'src/model.py` simply as it is self-contained. 
