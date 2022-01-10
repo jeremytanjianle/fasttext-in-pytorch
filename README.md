@@ -1,5 +1,5 @@
 ## Fasttext Subword Embeddings in PyTorch
-[FastText](https://github.com/facebookresearch/fastText) is great for things like handling OOV words using subwords...   
+[FastText](https://github.com/facebookresearch/fastText) is an incredible word embedding with a decent partial solution to handle OOV words and incorporate lexical similarity.     
 <img src='img/model_summary.png' width="400" height="200">  
 but what if we need to pass gradients through our fasttext embeddings?  
 
@@ -17,29 +17,6 @@ something_vec[:,:5]
 tensor([[-0.0045,  0.0097,  0.0500,  0.0337, -0.0330],
         [ 0.0011,  0.0044,  0.0108,  0.0488, -0.0035]])
 ```
-
-We can also save and restore in the following snippet.
-Keep in mind that it saves 3 things: embedding weights, embedding size, vocab
-```
-# saving and restoring function works
-subword.save('test')
-subword2 = Subword_Embedding()
-subword2.restore('test')
-
-# see something vec
-something_vec = subword2(['something', 'something is right'])
-something_vec[:,:5]
-tensor([[-0.0045,  0.0097,  0.0500,  0.0337, -0.0330],
-        [ 0.0011,  0.0044,  0.0108,  0.0488, -0.0035]],
-       grad_fn=<SliceBackward>)
-```
-
-Similarly, we can train models of the same architecture on a new corpus.  
-See `src.model_from_scratch.py`
-The train file demonstrate a general use case for the model.  
-`python train.py`   
-Generally, the results make sense.    
-<img src='img/word_sim.png'>
 
 ### Converting original `fasttext` embeddings into ingestible formats
 Download model.  
