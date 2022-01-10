@@ -28,4 +28,5 @@ if __name__=="__main__":
                         help="write to resources")
     args = parser.parse_args()    
 
+    if not os.path.exists(args.output_dir): os.makedirs(args.output_dir) 
     convert_embeddings(pretraining_path=args.pretraining_path, output_dir=args.output_dir)
