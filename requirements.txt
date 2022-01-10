@@ -1,10 +1,4 @@
 torch
 torchtext
-numpy 
 fasttext
 tqdm
-
-# pandas 
-# matplotlib
-# seaborn 
-# keras
