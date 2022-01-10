@@ -1,5 +1,6 @@
 import os
 import numpy as np
+from tqdm import tqdm
 import torch
 from torch import nn
 
@@ -29,6 +30,16 @@ def get_subwords(word, vocabulary, minn=5, maxn=5):
                     _subword_ids.append(get_hash(_candidate_subword))
     return _subwords, np.array(_subword_ids)
 
+def save_embeddings(model, output_dir):
+    """
+    save pretrained fasttext embeddings to output_dir
+    """
+    os.makedirs(output_dir, exist_ok=True)
+    np.save(os.path.join(output_dir, "embeddings"), model.get_input_matrix())
+    with open(os.path.join(output_dir, "vocabulary.txt"), "w", encoding='utf-8') as f:
+        for word in tqdm(model.get_words(), desc='saving words'):
+            f.write(word+"\n")
+
 def load_embeddings(output_dir):
     input_matrix = np.load(os.path.join(output_dir, "embeddings.npy"))
     words = []
@@ -45,7 +56,6 @@ class Subword_Embedding(nn.Module):
         
     def from_pretrained(self, pretrained_source):
         self.vocabulary, np_embeddings = load_embeddings(pretrained_source)
-        vocab_len, word_dim = np_embeddings.shape
         self.embedding = nn.EmbeddingBag.from_pretrained(torch.FloatTensor(np_embeddings))
         
     def forward(self, words):
@@ -79,3 +89,19 @@ class Subword_Embedding(nn.Module):
         offsets = torch.tensor(offsets, dtype=torch.long)
 
         return offsets
+
+    def save(self, savepath):
+        # get all
+        os.makedirs(savepath, exist_ok=True)
+        
+        # save embeddings
+        np.save(os.path.join(savepath, "embeddings"), list(self.embedding.parameters())[0].detach().numpy())
+
+        # save vocabulary
+        with open(os.path.join(savepath, "vocabulary.txt"), "w", encoding='utf-8') as f:
+            for word in tqdm(self.vocabulary, desc='saving words'):
+                f.write(word+"\n")
+    
+    def restore(self, savepath):
+        self.vocabulary, np_embeddings = load_embeddings(savepath)
+        self.embedding = nn.EmbeddingBag.from_pretrained(torch.FloatTensor(np_embeddings))

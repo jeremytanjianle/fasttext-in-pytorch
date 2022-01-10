@@ -6,7 +6,7 @@ but what if we need to pass gradients through our fasttext embeddings?
 ## Usage
 Code snippet to demonstrate that it will replicate the original fasttext embeddings
 ```
-# Imeplemented model gives the same emebddings
+# Implemented model gives the same emebddings
 from src.model import Subword_Embedding
 subword = Subword_Embedding()
 subword.from_pretrained( pretraining_folder = 'resources/cc.en.300.bin' )
@@ -17,19 +17,7 @@ something_vec[:,:5]
 tensor([[-0.0045,  0.0097,  0.0500,  0.0337, -0.0330],
         [ 0.0011,  0.0044,  0.0108,  0.0488, -0.0035]])
 ```
-Thr original fasttext package will give the same embeddings:
-```
-import fasttext
-ft = fasttext.load_model('resources/cc.en.300.bin/cc.en.300.bin')
-orignal_something_word_ft = ft['something']
-display(orignal_something_word_ft[:5])
-orignal_something_word_ft = ft['something is right']
-display(orignal_something_word_ft[:5])
-array([-0.00450556,  0.00967976,  0.05004459,  0.03372731, -0.03298175],
-      dtype=float32)
-array([ 0.00113235,  0.00438947,  0.01076363,  0.04882365, -0.00348948],
-      dtype=float32)
-```
+
 We can also save and restore in the following snippet.
 Keep in mind that it saves 3 things: embedding weights, embedding size, vocab
 ```
