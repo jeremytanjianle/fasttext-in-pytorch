@@ -1,3 +1,4 @@
+import os
 import argparse
 import numpy as np
 from tqdm import tqdm
@@ -21,7 +22,7 @@ if __name__=="__main__":
 
     parser = argparse.ArgumentParser(
         description='convert fasttext pretrained embeddings')
-    parser.add_argument("--pretraining_path", type=str, default="resources/converted_cc.en.300.bin/cc.en.300.bin",
+    parser.add_argument("--pretraining_path", type=str, default="resources/cc.en.300.bin/cc.en.300.bin",
                         help="path_of_pretraining_file")
     parser.add_argument("--output_dir", default="resources/converted_cc.en.300.bin",
                         help="write to resources")
