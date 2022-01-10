@@ -51,7 +51,7 @@ def load_embeddings(output_dir):
 class SubwordEmbedding(nn.Module):
     
     def __init__(self, pretrained_source=None):
-        super(Subword_Embedding, self).__init__()
+        super(SubwordEmbedding, self).__init__()
         if pretrained_source: self.from_pretrained(pretrained_source)
         
     def from_pretrained(self, pretrained_source):
