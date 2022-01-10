@@ -8,8 +8,7 @@ Code snippet to demonstrate that it will replicate the original fasttext embeddi
 ```
 # Implemented model gives the same emebddings
 from src.model import Subword_Embedding
-subword = Subword_Embedding()
-subword.from_pretrained( pretraining_folder = 'resources/cc.en.300.bin' )
+subword = SubwordEmbedding('resources/cc.en.300.bin')
 
 # see something vec
 something_vec = subword(['something', 'something is right'])

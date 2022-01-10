@@ -48,7 +48,7 @@ def load_embeddings(output_dir):
             words.append(line.rstrip())
     return words, input_matrix
 
-class Subword_Embedding(nn.Module):
+class SubwordEmbedding(nn.Module):
     
     def __init__(self, pretrained_source=None):
         super(Subword_Embedding, self).__init__()
